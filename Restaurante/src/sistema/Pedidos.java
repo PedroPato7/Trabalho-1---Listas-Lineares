@@ -12,23 +12,23 @@ public class Pedidos {
 	}
 	
 	// Função para inserir no inicio.
-	public void inserirPedidoInicio(String nome) {
-		Nodo novoNodo = new Nodo(nome);
+	public void inserirPedidoInicio(String stats, Double valor) {
+		Nodo novoNodo = new Nodo(stats, valor);
 		novoNodo.setProx(inicio);
 		inicio = novoNodo;
 	}
 	
 	// Função para inserir no final.
-	public void inserirPedidoFinal(String nome) {
+	public void inserirPedidoFinal(String stats, Double valor) {
 		if (vazia()) {
-			inserirPedidoInicio(nome);
+			inserirPedidoInicio(stats, valor);
 			return;
 		}
 		Nodo aux = inicio;
 		while (aux.getProx() != null) {
 			aux = aux.getProx();
 		}
-		Nodo novoNodo = new Nodo(nome);
+		Nodo novoNodo = new Nodo(stats, valor);
 		aux.setProx(novoNodo);
 	}
 	
@@ -40,43 +40,46 @@ public class Pedidos {
 		}
 		Nodo aux = inicio;
 		while (aux != null) {
-			System.out.println("- " + aux.getNome() + " ");
+			System.out.println("- Status: " + aux.getStats() + " | Preço - " + aux.getValor());
 			aux = aux.getProx();
 		}		
 	}
 	
-	public void atualizarPedido(String nome, String atualizar) {
+	public void atualizarPedido(String stats, String atualizarStats, Double atualizarValor) {
 		if (vazia()) {
 			System.out.println("Sem clientes para atualizar.");
 			return;
 		}
 		Nodo aux = inicio;
-		if (aux.getNome() != null) {
-			if (aux.getNome() == nome) {
-				aux.setNome(atualizar);
+		if (aux.getStats() != null) {
+			if (aux.getStats() == stats) {
+				aux.setStats(atualizarStats);
+				aux.setValor(atualizarValor);
 				return;
 			}			
 		}
 		while (aux.getProx() != null) {
-			if (aux.getProx().getNome() == nome) {
-				aux.getProx().setNome(atualizar);
+			if (aux.getProx().getStats() == stats) {
+				aux.getProx().setStats(atualizarStats);
+				aux.getProx().setValor(atualizarValor);
 			} 
 			aux = aux.getProx();
 		}
 	}
 	
 	//Função para deletar número específico
-	public void deletarPedido(String nome) {
+	public void deletarPedido(String stats) {
 		if (vazia()) return;
-		if (inicio.getNome() == nome) {
+		if (inicio.getStats() == stats) {
 			inicio = inicio.getProx();
 			return;
 		}
 		Nodo aux = inicio;
 		while (aux.getProx() != null) {
-			if (aux.getProx().getNome() == nome) {
+			if (aux.getProx().getStats() == stats) {				
 				aux.setProx(aux.getProx().getProx());
-			}
+				return;
+			}		
 			aux = aux.getProx();
 		}
 	}

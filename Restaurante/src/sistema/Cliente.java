@@ -1,8 +1,7 @@
 package sistema;
 
-public class Cliente extends Nodo{
+public class Cliente{
 
-	private String nome;	
 	private Nodo inicio;
 	
 	public boolean vazia() {//Verifica se a fila está vazia
@@ -77,6 +76,7 @@ public class Cliente extends Nodo{
 		while (aux.getProx() != null) {
 			if (aux.getProx().getNome() == nome) {
 				aux.setProx(aux.getProx().getProx());
+				return;
 			}
 			aux = aux.getProx();
 		}
