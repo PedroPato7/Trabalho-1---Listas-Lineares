@@ -3,7 +3,7 @@ Trabalho sobre Estrutura de Dados de listas lineares.
 
 Ainda em desenvolvimento:
 
-1 - Gerenciamento de Clientes | OK br
+1 - Gerenciamento de Clientes | OK \n
 2 - Gerenciamento de Pedidos | OK
 3 - Gerenciamento de mesas | Não comecei
 4 - Gerenciamento de Funcionarios | Não comecei
