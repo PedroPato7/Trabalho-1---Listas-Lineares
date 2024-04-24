@@ -9,6 +9,10 @@ public class Nodo {
 	private int numPedido;
 	//Atributo de Cliente
 	private String nome;
+	//Atributos de Mesas
+	private boolean disponivel;
+	private int cadeirasDisp;
+	private int numMesa;
 	
 	public Nodo(String nome) {
 		this.nome = nome;
@@ -18,6 +22,12 @@ public class Nodo {
 		this.statsPedido = stats;
 		this.valorPedido = valor;
 		this.numPedido = numPedido;
+		this.prox = null;
+	}
+	public Nodo(boolean disp, int cadeiraDisp, int numMesa) {
+		this.disponivel = disp;
+		this.cadeirasDisp = cadeiraDisp;
+		this.numMesa = numMesa;
 		this.prox = null;
 	}
 	public Nodo getProx() {
@@ -49,5 +59,23 @@ public class Nodo {
 	}
 	public void setNumPedido(int numPedido) {
 		this.numPedido = numPedido;
+	}
+	public boolean isDisponivel() {
+		return disponivel;
+	}
+	public void setDisponivel(boolean disponivel) {
+		this.disponivel = disponivel;
+	}
+	public int getCadeirasDisp() {
+		return cadeirasDisp;
+	}
+	public void setCadeirasDisp(int cadeirasDisp) {
+		this.cadeirasDisp = cadeirasDisp;
+	}
+	public int getNumMesa() {
+		return numMesa;
+	}
+	public void setNumMesa(int numMesa) {
+		this.numMesa = numMesa;
 	}
 }

@@ -45,6 +45,7 @@ public class Cliente{
 		}		
 	}
 	
+	//Função para atualizar dados do cliente
 	public void atualizarCliente(String nome, String atualizar) {
 		if (vazia()) {
 			System.out.println("Sem clientes para atualizar.");
@@ -65,7 +66,7 @@ public class Cliente{
 		}
 	}
 	
-	//Função para deletar número específico
+	//Função para deletar um cliente específico
 	public void deletarCliente(String nome) {
 		if (vazia()) return;
 		if (inicio.getNome() == nome) {

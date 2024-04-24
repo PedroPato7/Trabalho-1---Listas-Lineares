@@ -1,10 +1,9 @@
 package sistema;
 
-public class Pedidos {
+public class Mesas {
 	
 	private Nodo inicio;
-	private int quantPedidos = -1;
-	
+		
 	public boolean vazia() {//Verifica se a fila está vazia
 		return inicio == null;
 	}
@@ -13,11 +12,11 @@ public class Pedidos {
 	}
 	
 	// Função para inserir no inicio.
-	public void inserirPedidoInicio(String stats, Double valor, int idPedido) {
+	public void inserirPedidoInicio() {
 		Nodo novoNodo = new Nodo(stats, valor, idPedido);
 		novoNodo.setProx(inicio);
 		inicio = novoNodo;
-		quantPedidos++;
+		
 	}
 	
 	// Função para inserir no final.
@@ -31,7 +30,7 @@ public class Pedidos {
 			aux = aux.getProx();
 		}
 		Nodo novoNodo = new Nodo(stats, valor, idPedido);
-		quantPedidos++;
+		
 		aux.setProx(novoNodo);
 	}
 	
