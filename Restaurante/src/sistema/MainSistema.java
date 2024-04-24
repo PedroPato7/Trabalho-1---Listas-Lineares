@@ -24,12 +24,12 @@ public class MainSistema {
 		System.out.println("\n | --Pedidos-- |");
 		
 		Pedidos p = new Pedidos();		
-		p.inserirPedidoInicio("Em preparação", 5.00);
-		p.inserirPedidoFinal("Pronto", 17.99);
-		p.inserirPedidoInicio("Na fila", 7.50);		
+		p.inserirPedidoInicio("Em preparação", 5.00, 00);
+		p.inserirPedidoFinal("Pronto", 17.99, 01);
+		p.inserirPedidoInicio("Na fila", 7.50, 02);		
 		p.consultaPedido();		
 		p.deletarPedido("Pronto");
-		p.atualizarPedido("Na fila", "Cancelado", 0.00);
+		p.atualizarPedido("Na fila", "Cancelado", 0.00, 10);
 		System.out.println("\n  | --Pedidos após remoção e atualização-- |");
 		p.consultaPedido();		
 	}

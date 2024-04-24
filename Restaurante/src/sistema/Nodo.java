@@ -3,17 +3,21 @@ package sistema;
 public class Nodo {	
 	
 	private Nodo prox;
-	private String stats;
-	private Double valor;
+	//Atributos de pedidos
+	private String statsPedido;
+	private Double valorPedido;
+	private int numPedido;
+	//Atributo de Cliente
 	private String nome;
 	
 	public Nodo(String nome) {
 		this.nome = nome;
 		this.prox = null;
 	}
-	public Nodo(String stats, Double valor) {
-		this.stats = stats;
-		this.valor = valor;
+	public Nodo(String stats, Double valor, int numPedido) {
+		this.statsPedido = stats;
+		this.valorPedido = valor;
+		this.numPedido = numPedido;
 		this.prox = null;
 	}
 	public Nodo getProx() {
@@ -28,16 +32,22 @@ public class Nodo {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getStats() {
-		return stats;
+	public String getStatsPedido() {
+		return statsPedido;
 	}
-	public void setStats(String stats) {
-		this.stats = stats;
+	public void setStatsPedido(String statsPedido) {
+		this.statsPedido = statsPedido;
 	}
-	public Double getValor() {
-		return valor;
+	public Double getValorPedido() {
+		return valorPedido;
 	}
-	public void setValor(Double valor) {
-		this.valor = valor;
+	public void setValorPedido(Double valorPedido) {
+		this.valorPedido = valorPedido;
+	}
+	public int getNumPedido() {
+		return numPedido;
+	}
+	public void setNumPedido(int numPedido) {
+		this.numPedido = numPedido;
 	}
 }
