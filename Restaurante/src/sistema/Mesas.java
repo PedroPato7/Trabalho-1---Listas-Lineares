@@ -149,11 +149,13 @@ public class Mesas {
 						conversor = aux.getNumMesa() + "";
 						System.out.println(cliente + " escolheu a mesa: " + aux.getNumMesa());
 						//Verifica se o cliente predominante está acompanhado
-						
+						if (quantClientes == 2) {
 							cli.inserirClienteFinal(acompanhante1, conversor);
+						} else if (quantClientes == 3) {
 							cli.inserirClienteFinal(acompanhante2, conversor);
+						} else if (quantClientes == 4) {
 							cli.inserirClienteFinal(acompanhante3, conversor);
-							
+						}							
 						cli.atualizarCliente(cliente, cliente, conversor);
 						return;
 					} else {

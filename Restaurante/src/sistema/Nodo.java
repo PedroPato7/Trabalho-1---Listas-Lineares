@@ -15,6 +15,11 @@ public class Nodo {
 	private int cadeirasDisp;
 	private int numMesa;
 	private String clienteNaMesa;
+	//Atributos de Funcionarios
+	private String cargo;
+	private String escala;
+	private String nomeFunc;
+	private int idFunc;
 	
 	//Função dos Clientes
 	public Nodo(String nome, String mesa) {
@@ -35,6 +40,14 @@ public class Nodo {
 		this.cadeirasDisp = cadeiraDisp;
 		this.numMesa = numMesa;
 		this.clienteNaMesa = cliente;
+		this.prox = null;
+	}
+	//Função dos Funcionarios
+	public Nodo(String cargo, String escala, String nome, int id) {
+		this.cargo = cargo;
+		this.escala = escala;
+		this.nome = nome;
+		this.idFunc = id;
 		this.prox = null;
 	}
 	public Nodo getProx() {
@@ -96,5 +109,29 @@ public class Nodo {
 	}
 	public void setClienteNaMesa(String clienteNaMesa) {
 		this.clienteNaMesa = clienteNaMesa;
+	}
+	public String getCargo() {
+		return cargo;
+	}
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+	public String getEscala() {
+		return escala;
+	}
+	public void setEscala(String escala) {
+		this.escala = escala;
+	}
+	public String getNomeFunc() {
+		return nomeFunc;
+	}
+	public void setNomeFunc(String nomeFunc) {
+		this.nomeFunc = nomeFunc;
+	}
+	public int getIdFunc() {
+		return idFunc;
+	}
+	public void setIdFunc(int id) {
+		this.idFunc = id;
 	}
 }

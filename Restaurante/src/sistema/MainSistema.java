@@ -49,7 +49,7 @@ public class MainSistema {
 		System.out.println("\n --Escolhendo mesas--  ");		
 		m.escolherMesa(c, "Igor", false, 1, null, null, null);// Tem que inserir o nome do cliente que quer a mesa e dizer se ele está acompanhado ou não, caso esteja precisa informar com quantas pessoas incluindo ele mesmo.
 		System.out.println("\n");
-		m.escolherMesa(c, "Pedro", true, 5, "Cleber", "Rogério", "Daniel");
+		m.escolherMesa(c, "Pedro", true, 2, "Cleber", null, null);
 		System.out.println("\n");
 		
 		System.out.println("| -- Consulta dos Clientes -- |");
