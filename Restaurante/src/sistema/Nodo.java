@@ -9,25 +9,32 @@ public class Nodo {
 	private int numPedido;
 	//Atributo de Cliente
 	private String nome;
+	private String mesa;
 	//Atributos de Mesas
 	private boolean disponivel;
 	private int cadeirasDisp;
 	private int numMesa;
+	private String clienteNaMesa;
 	
-	public Nodo(String nome) {
+	//Função dos Clientes
+	public Nodo(String nome, String mesa) {
 		this.nome = nome;
+		this.mesa = mesa;
 		this.prox = null;
 	}
+	//Função dos pedidos
 	public Nodo(String stats, Double valor, int numPedido) {
 		this.statsPedido = stats;
 		this.valorPedido = valor;
 		this.numPedido = numPedido;
 		this.prox = null;
 	}
-	public Nodo(boolean disp, int cadeiraDisp, int numMesa) {
+	//Função das mesas
+	public Nodo(boolean disp, int cadeiraDisp, int numMesa, String cliente) {
 		this.disponivel = disp;
 		this.cadeirasDisp = cadeiraDisp;
 		this.numMesa = numMesa;
+		this.clienteNaMesa = cliente;
 		this.prox = null;
 	}
 	public Nodo getProx() {
@@ -41,6 +48,12 @@ public class Nodo {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public String getMesa() {
+		return mesa;
+	}
+	public void setMesa(String mesa) {
+		this.mesa = mesa;
 	}
 	public String getStatsPedido() {
 		return statsPedido;
@@ -77,5 +90,11 @@ public class Nodo {
 	}
 	public void setNumMesa(int numMesa) {
 		this.numMesa = numMesa;
+	}
+	public String getClienteNaMesa() {
+		return clienteNaMesa;
+	}
+	public void setClienteNaMesa(String clienteNaMesa) {
+		this.clienteNaMesa = clienteNaMesa;
 	}
 }

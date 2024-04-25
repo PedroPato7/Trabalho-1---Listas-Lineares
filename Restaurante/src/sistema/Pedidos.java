@@ -38,7 +38,7 @@ public class Pedidos {
 	//Função para mostrar lista
 	public void consultaPedido() {
 		if (vazia()) {
-			System.out.println("Sem clientes na fila.");
+			System.out.println("Sem pedidos.");
 			return;
 		}
 		Nodo aux = inicio;
@@ -51,7 +51,7 @@ public class Pedidos {
 	//Função para atualizar pedidos
 	public void atualizarPedido(int numPedido, int numAtualizado, String atualizarStats, Double atualizarValor) {
 		if (vazia()) {
-			System.out.println("Sem clientes para atualizar.");
+			System.out.println("Sem pedidos para atualizar.");
 			return;
 		}
 		Nodo aux = inicio;

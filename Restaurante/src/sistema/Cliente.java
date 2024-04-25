@@ -12,23 +12,23 @@ public class Cliente{
 	}
 	
 	// Função para inserir no inicio.
-	public void inserirClienteInicio(String nome) {
-		Nodo novoNodo = new Nodo(nome);
+	public void inserirClienteInicio(String nome, String mesa) {
+		Nodo novoNodo = new Nodo(nome, mesa);
 		novoNodo.setProx(inicio);
 		inicio = novoNodo;
 	}
 	
 	// Função para inserir no final.
-	public void inserirClienteFinal(String nome) {
+	public void inserirClienteFinal(String nome, String mesa) {
 		if (vazia()) {
-			inserirClienteInicio(nome);
+			inserirClienteInicio(nome, mesa);
 			return;
 		}
 		Nodo aux = inicio;
 		while (aux.getProx() != null) {
 			aux = aux.getProx();
 		}
-		Nodo novoNodo = new Nodo(nome);
+		Nodo novoNodo = new Nodo(nome, mesa);
 		aux.setProx(novoNodo);
 	}
 	
@@ -40,13 +40,17 @@ public class Cliente{
 		}
 		Nodo aux = inicio;
 		while (aux != null) {
-			System.out.println("- " + aux.getNome() + " ");
+			if(aux.getMesa() != null) {
+				System.out.println("- " + aux.getNome() + " | Número da mesa - " + aux.getMesa());
+			} else {
+				System.out.println("- " + aux.getNome() + " | Nenhuma mesa escolhida ainda.");
+			}
 			aux = aux.getProx();
 		}		
 	}
 	
 	//Função para atualizar dados do cliente
-	public void atualizarCliente(String nome, String atualizar) {
+	public void atualizarCliente(String nome, String nomeAtual, String mesaAtual) {
 		if (vazia()) {
 			System.out.println("Sem clientes para atualizar.");
 			return;
@@ -54,13 +58,15 @@ public class Cliente{
 		Nodo aux = inicio;
 		if (aux.getNome() != null) {
 			if (aux.getNome() == nome) {
-				aux.setNome(atualizar);
+				aux.setNome(nomeAtual);
+				aux.setMesa(mesaAtual);
 				return;
 			}			
 		}
 		while (aux.getProx() != null) {
 			if (aux.getProx().getNome() == nome) {
-				aux.getProx().setNome(atualizar);
+				aux.setNome(nomeAtual);
+				aux.setMesa(mesaAtual);
 			} 
 			aux = aux.getProx();
 		}
@@ -82,4 +88,5 @@ public class Cliente{
 			aux = aux.getProx();
 		}
 	}
+	
 }
