@@ -60,28 +60,38 @@ public class Cliente{
 			if (aux.getNome() == nome) {
 				aux.setNome(nomeAtual);
 				aux.setMesa(mesaAtual);
+				System.out.println("Informações do cliente " + nome + " atualizadas.");
 				return;
 			}			
 		}
 		while (aux.getProx() != null) {
 			if (aux.getProx().getNome() == nome) {
+				aux = aux.getProx();
+				System.out.println("Informações do cliente " + nome + " atualizadas.");
 				aux.setNome(nomeAtual);
 				aux.setMesa(mesaAtual);
+				return;
 			} 
 			aux = aux.getProx();
 		}
 	}
 	
 	//Função para deletar um cliente específico
-	public void deletarCliente(String nome) {
+	public void deletarCliente(Mesas mesa, String nome) {
 		if (vazia()) return;
 		if (inicio.getNome() == nome) {
+			System.out.println("Cliente " + nome + " removido com sucesso.");
+			int numTable = Integer.parseInt(inicio.getMesa());
+			mesa.atualizarMesa(numTable, 0, true, 4, null);
 			inicio = inicio.getProx();
 			return;
 		}
 		Nodo aux = inicio;
 		while (aux.getProx() != null) {
 			if (aux.getProx().getNome() == nome) {
+				System.out.println("Cliente " + nome + " removido com sucesso.");
+				int numTable = Integer.parseInt(aux.getProx().getMesa());
+				mesa.atualizarMesa(numTable, 0, true, 4, null);
 				aux.setProx(aux.getProx().getProx());
 				return;
 			}
