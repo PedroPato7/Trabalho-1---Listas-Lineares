@@ -133,7 +133,7 @@ public class Mesas {
 				}
 				aux = aux.getProx();
 			}		
-		} else {
+		} else {		
 			if (quantClientes > 4) {
 				System.out.println(" Sobre o cliente " + cliente + ", lamentamos informar, mas não temos lugares o suficiente para essa quantia de gente, suportamos no máximo 4 clientes em uma mesa e não podemos juntar as mesas e nem pegar cadeiras disponíveis.");
 			} else {

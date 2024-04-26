@@ -46,4 +46,11 @@ public class Funcionarios {
 			aux = aux.getProx();
 		}	
 	}
+	
+	//Teste, ignora por enquanto.
+//	public void escalasFunc(String escalas) {
+//		if (inicio.getCargo() == "garçom") {
+//			escalas = "Escala de garçom: Segunda - 08:00am até 18:00pm (10 horas) | Terça - 8 horas... pipipiopopo : Totalizando 56 horas de trabalho semanal";
+//		}
+//	}
 }
