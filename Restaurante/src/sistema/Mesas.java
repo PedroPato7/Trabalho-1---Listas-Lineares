@@ -3,7 +3,6 @@ package sistema;
 public class Mesas {
 	
 	private Nodo inicio;
-	private int quantMesas;
 		
 	public boolean vazia() {//Verifica se a tem mesas no local.
 		return inicio == null;
@@ -16,8 +15,7 @@ public class Mesas {
 	public void adicionarMesa(boolean disp, int cadeirasDisp, int numMesa, String cliente) {
 		Nodo novoNodo = new Nodo(disp, cadeirasDisp, numMesa, cliente);
 		novoNodo.setProx(inicio);
-		inicio = novoNodo;
-		quantMesas++;		
+		inicio = novoNodo;		
 	}
 	
 	//Função para mostrar informações das mesas
@@ -44,7 +42,6 @@ public class Mesas {
 			return;
 		}
 		Nodo aux = inicio;
-		int cont = 0;
 		if (aux.getProx() != null) {
 			if (aux.getNumMesa() == numMesa) {
 				aux.setNumMesa(numMesa);
@@ -55,8 +52,7 @@ public class Mesas {
 				return;
 			}			
 		}
-		while (cont != quantMesas) {
-			cont++;
+		while (aux.getProx() != null) {
 			if (aux.getProx().getNumMesa() == numMesa) {
 				aux.getProx().setNumMesa(numMesa);
 				aux.getProx().setDisponivel(dispAtualizado);
@@ -150,11 +146,11 @@ public class Mesas {
 						System.out.println(cliente + " escolheu a mesa: " + aux.getNumMesa());
 						//Verifica se o cliente predominante está acompanhado
 						if (quantClientes == 2) {
-							cli.inserirClienteFinal(acompanhante1, conversor);
+							cli.inserirCliente(acompanhante1, conversor, 0);
 						} else if (quantClientes == 3) {
-							cli.inserirClienteFinal(acompanhante2, conversor);
+							cli.inserirCliente(acompanhante2, conversor, 0);
 						} else if (quantClientes == 4) {
-							cli.inserirClienteFinal(acompanhante3, conversor);
+							cli.inserirCliente(acompanhante3, conversor, 0);
 						}							
 						cli.atualizarCliente(cliente, cliente, conversor);
 						return;

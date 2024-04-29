@@ -12,8 +12,8 @@ public class Funcionarios {
 		return inicio;
 	}
 
-	public void contratarFunc(String cargo, String escala, String nomeFunc) {
-		Nodo novoNodo = new Nodo(cargo, escala, nomeFunc, idFunc);
+	public void contratarFunc(String cargo, String escala, String nomeFunc, boolean stats, int idPed) {
+		Nodo novoNodo = new Nodo(cargo, nomeFunc, idFunc, stats, idPed);
 		novoNodo.setProx(inicio);
 		inicio = novoNodo;
 		idFunc++;
@@ -26,7 +26,7 @@ public class Funcionarios {
 		}
 		Nodo aux = inicio;
 		while(aux != null) {
-			System.out.println("- Identidade: " + aux.getIdFunc() + " | Cargo: " + aux.getCargo() + " | Nome: " + aux.getNomeFunc() + " | Escala: " + aux.getEscala());
+			System.out.println("- Identidade: " + aux.getIdFunc() + " | Cargo: " + aux.getCargo() + " | Nome: " + aux.getNomeFunc());
 			aux = aux.getProx();
 			}
 		}
@@ -47,10 +47,43 @@ public class Funcionarios {
 		}	
 	}
 	
+	public void atualizarStatsFunc(int idPed) {
+		Nodo auxFunc = inicio;
+		while (auxFunc != null) {
+			if (auxFunc.getNumeracaoPedido() == idPed) {
+				auxFunc.setNumeracaoPedido(0);
+				auxFunc.setStatsFunc(true);
+			}
+			auxFunc = auxFunc.getProx();
+		}		
+	}
+	
 	//Teste, ignora por enquanto.
-//	public void escalasFunc(String escalas) {
-//		if (inicio.getCargo() == "garçom") {
-//			escalas = "Escala de garçom: Segunda - 08:00am até 18:00pm (10 horas) | Terça - 8 horas... pipipiopopo : Totalizando 56 horas de trabalho semanal";
-//		}
-//	}
+	public void escalasFunc() {
+		if (vazia()) return;	
+		System.out.println("\n| Escala de cozinheiro | \n| Segunda - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Terça - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Quarta - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Quinta - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Sexta - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Sábado - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Domingo - Folga | "
+				+ "\n| Totalizando 60 horas de trabalho semanal \n");
+		System.out.println("| Escala de garçom | \n| Segunda - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Terça - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Quarta - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Quinta - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Sexta - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Sábado - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Domingo - Folga | "
+				+ "\n| Totalizando 60 horas de trabalho semanal \n");	
+		System.out.println("| Escala de Caixa | \n| Segunda - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Terça - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Quarta - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Quinta - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Sexta - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Sábado - 08:00am até 18:00pm (10 horas) | "
+				+ "\n| Domingo - Folga | "
+				+ "\n| Totalizando 60 horas de trabalho semanal \n");
+	}
 }

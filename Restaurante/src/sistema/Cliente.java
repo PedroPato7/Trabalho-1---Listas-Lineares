@@ -12,24 +12,10 @@ public class Cliente{
 	}
 	
 	// Função para inserir no inicio.
-	public void inserirClienteInicio(String nome, String mesa) {
-		Nodo novoNodo = new Nodo(nome, mesa);
+	public void inserirCliente(String nome, String mesa, int numPed) {
+		Nodo novoNodo = new Nodo(nome, mesa, numPed, "Esperando uma mesa");
 		novoNodo.setProx(inicio);
 		inicio = novoNodo;
-	}
-	
-	// Função para inserir no final.
-	public void inserirClienteFinal(String nome, String mesa) {
-		if (vazia()) {
-			inserirClienteInicio(nome, mesa);
-			return;
-		}
-		Nodo aux = inicio;
-		while (aux.getProx() != null) {
-			aux = aux.getProx();
-		}
-		Nodo novoNodo = new Nodo(nome, mesa);
-		aux.setProx(novoNodo);
 	}
 	
 	//Função para mostrar lista
@@ -77,7 +63,7 @@ public class Cliente{
 	}
 	
 	//Função para deletar um cliente específico
-	public void deletarCliente(Mesas mesa, String nome) {
+	public void deletarCliente(Mesas mesa, String nome) {// ---------FAZER VERIFICAÇÃO SE O PEDIDO FOI ENTREGUE ANTES OU NÃO
 		if (vazia()) return;
 		if (inicio.getNome() == nome) {
 			System.out.println("Cliente " + nome + " removido com sucesso.");
@@ -97,6 +83,5 @@ public class Cliente{
 			}
 			aux = aux.getProx();
 		}
-	}
-	
+	}	
 }

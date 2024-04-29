@@ -5,11 +5,26 @@ public class Nodo {
 	private Nodo prox;
 	//Atributos de pedidos
 	private String statsPedido;
+	/*
+	 - Em preparação
+	 - Pronto
+	 - Entregue
+	 - Cancelado
+	*/
 	private Double valorPedido;
 	private int numPedido;
 	//Atributo de Cliente
 	private String nome;
 	private String mesa;
+	private int numeroDoPedido;
+	private String statsCliente;
+	/*
+	 - Esperando uma mesa
+	 - Esperando um garçom
+	 - Esperando o pedido
+	 - Na fila do caixa
+	 - No caixa
+	 */
 	//Atributos de Mesas
 	private boolean disponivel;
 	private int cadeirasDisp;
@@ -17,14 +32,17 @@ public class Nodo {
 	private String clienteNaMesa;
 	//Atributos de Funcionarios
 	private String cargo;
-	private String escala;
 	private String nomeFunc;
 	private int idFunc;
+	private boolean statsFunc;
+	private int numeracaoPedido;
 	
 	//Função dos Clientes
-	public Nodo(String nome, String mesa) {
+	public Nodo(String nome, String mesa, int numeroPed, String stats) {
 		this.nome = nome;
 		this.mesa = mesa;
+		this.numeroDoPedido = numeroPed;
+		this.statsCliente = stats;
 		this.prox = null;
 	}
 	//Função dos pedidos
@@ -43,11 +61,12 @@ public class Nodo {
 		this.prox = null;
 	}
 	//Função dos Funcionarios
-	public Nodo(String cargo, String escala, String nome, int id) {
+	public Nodo(String cargo, String nome, int id, boolean statusFunc, int numPed) {
 		this.cargo = cargo;
-		this.escala = escala;
 		this.nome = nome;
 		this.idFunc = id;
+		this.statsFunc = statusFunc;
+		this.numeracaoPedido = numPed;
 		this.prox = null;
 	}
 	public Nodo getProx() {
@@ -67,6 +86,18 @@ public class Nodo {
 	}
 	public void setMesa(String mesa) {
 		this.mesa = mesa;
+	}
+	public String getStatsCliente() {
+		return statsCliente;
+	}
+	public void setStatsCliente(String statsCliente) {
+		this.statsCliente = statsCliente;
+	}
+	public int getNumeroDoPedido() {
+		return numeroDoPedido;
+	}
+	public void setNumeroDoPedido(int numeroDoPedido) {
+		this.numeroDoPedido = numeroDoPedido;
 	}
 	public String getStatsPedido() {
 		return statsPedido;
@@ -116,12 +147,6 @@ public class Nodo {
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
-	public String getEscala() {
-		return escala;
-	}
-	public void setEscala(String escala) {
-		this.escala = escala;
-	}
 	public String getNomeFunc() {
 		return nomeFunc;
 	}
@@ -133,5 +158,17 @@ public class Nodo {
 	}
 	public void setIdFunc(int id) {
 		this.idFunc = id;
+	}
+	public boolean isStatsFunc() {
+		return statsFunc;
+	}
+	public void setStatsFunc(boolean statsFunc) {
+		this.statsFunc = statsFunc;
+	}
+	public int getNumeracaoPedido() {
+		return numeracaoPedido;
+	}
+	public void setNumeracaoPedido(int numeracaoPedido) {
+		this.numeracaoPedido = numeracaoPedido;
 	}
 }
