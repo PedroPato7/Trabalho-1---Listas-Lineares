@@ -3,16 +3,19 @@ package sistema;
 public class Nodo {	
 	
 	private Nodo prox;
+	
 	//Atributos de pedidos
 	private String statsPedido;
 	/*
-	 - Em preparação
+	 - Anotado
+	 - Na cozinha
 	 - Pronto
 	 - Entregue
 	 - Cancelado
 	*/
 	private Double valorPedido;
 	private int numPedido;
+	
 	//Atributo de Cliente
 	private String nome;
 	private String mesa;
@@ -21,15 +24,20 @@ public class Nodo {
 	/*
 	 - Esperando uma mesa
 	 - Esperando um garçom
-	 - Esperando o pedido
+	 - Esperando pedido
+	 - Comendo
 	 - Na fila do caixa
 	 - No caixa
+	 - Foi embora
 	 */
+	// private double comandaCliente; ---------- Ideia de fazer a comanda de produtos pedidos pelo cliente, cobrando pelo produto de qualquer maneira se ele estiver com o status "Na cozinha", antes disso, pode ser cancelado sem cobrança.
+	
 	//Atributos de Mesas
 	private boolean disponivel;
 	private int cadeirasDisp;
 	private int numMesa;
 	private String clienteNaMesa;
+	
 	//Atributos de Funcionarios
 	private String cargo;
 	private String nomeFunc;
@@ -63,7 +71,7 @@ public class Nodo {
 	//Função dos Funcionarios
 	public Nodo(String cargo, String nome, int id, boolean statusFunc, int numPed) {
 		this.cargo = cargo;
-		this.nome = nome;
+		this.nomeFunc = nome;
 		this.idFunc = id;
 		this.statsFunc = statusFunc;
 		this.numeracaoPedido = numPed;

@@ -12,8 +12,8 @@ public class Cliente{
 	}
 	
 	// Função para inserir no inicio.
-	public void inserirCliente(String nome, String mesa, int numPed) {
-		Nodo novoNodo = new Nodo(nome, mesa, numPed, "Esperando uma mesa");
+	public void inserirCliente(String nome, String mesa, int numPed, String stats) {
+		Nodo novoNodo = new Nodo(nome, mesa, numPed, stats);
 		novoNodo.setProx(inicio);
 		inicio = novoNodo;
 	}
@@ -27,25 +27,26 @@ public class Cliente{
 		Nodo aux = inicio;
 		while (aux != null) {
 			if(aux.getMesa() != null) {
-				System.out.println("- " + aux.getNome() + " | Número da mesa - " + aux.getMesa());
+				System.out.println("- " + aux.getNome() + " | Número da mesa - " + aux.getMesa() + " | Stats: " + aux.getStatsCliente());
 			} else {
-				System.out.println("- " + aux.getNome() + " | Nenhuma mesa escolhida ainda.");
+				System.out.println("- " + aux.getNome() + " | Nenhuma mesa escolhida ainda " + "| Stats: " + aux.getStatsCliente());
 			}
 			aux = aux.getProx();
 		}		
 	}
 	
 	//Função para atualizar dados do cliente
-	public void atualizarCliente(String nome, String nomeAtual, String mesaAtual) {
+	public void atualizarCliente(String nome, String nomeAtual, String mesaAtual, String stats) {
 		if (vazia()) {
 			System.out.println("Sem clientes para atualizar.");
 			return;
 		}
 		Nodo aux = inicio;
-		if (aux.getNome() != null) {
+		if (aux != null) {
 			if (aux.getNome() == nome) {
 				aux.setNome(nomeAtual);
 				aux.setMesa(mesaAtual);
+				aux.setStatsCliente(stats);
 				System.out.println("Informações do cliente " + nome + " atualizadas.");
 				return;
 			}			
@@ -56,6 +57,7 @@ public class Cliente{
 				System.out.println("Informações do cliente " + nome + " atualizadas.");
 				aux.setNome(nomeAtual);
 				aux.setMesa(mesaAtual);
+				aux.setStatsCliente(stats);
 				return;
 			} 
 			aux = aux.getProx();

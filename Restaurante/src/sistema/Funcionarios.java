@@ -11,14 +11,14 @@ public class Funcionarios {
 	public Nodo getInicio() {
 		return inicio;
 	}
-
-	public void contratarFunc(String cargo, String escala, String nomeFunc, boolean stats, int idPed) {
+	//Contrata um funcionário para trabalhar no restaurante.
+	public void contratarFunc(String cargo, String nomeFunc, boolean stats, int idPed) {
 		Nodo novoNodo = new Nodo(cargo, nomeFunc, idFunc, stats, idPed);
 		novoNodo.setProx(inicio);
 		inicio = novoNodo;
 		idFunc++;
 	}
-	
+	//Mostra os funcionários do restaurante e suas informações.
 	public void mostraFunc() {
 		if (vazia()) {
 			System.out.println("Sem funcionários contratados.");
@@ -26,11 +26,11 @@ public class Funcionarios {
 		}
 		Nodo aux = inicio;
 		while(aux != null) {
-			System.out.println("- Identidade: " + aux.getIdFunc() + " | Cargo: " + aux.getCargo() + " | Nome: " + aux.getNomeFunc());
+			System.out.println("- Id: " + aux.getIdFunc() + " | Cargo: " + aux.getCargo() + " | Nome: " + aux.getNomeFunc());
 			aux = aux.getProx();
 			}
 		}
-	
+	//Dispensa um funcionário do restaurante -------------------------TALVEZ DE ERRO CASO EU FAÇA UM PEDIDO COM TAL FUNCIONÁRIO, ALOQUE AS INFORMAÇÕES DOS PEDIDOS NELE E DISPENSE LOGO EM SEGUIDA.
 	public void dispensarFunc(int id) {
 		if (vazia()) return;
 		if (inicio.getIdFunc() == id) {
@@ -46,7 +46,7 @@ public class Funcionarios {
 			aux = aux.getProx();
 		}	
 	}
-	
+	//Função usada para mudar o stats do funcionário para disponivel.
 	public void atualizarStatsFunc(int idPed) {
 		Nodo auxFunc = inicio;
 		while (auxFunc != null) {
@@ -58,7 +58,7 @@ public class Funcionarios {
 		}		
 	}
 	
-	//Teste, ignora por enquanto.
+	//A escala de horas de cada cargo de funcionário.
 	public void escalasFunc() {
 		if (vazia()) return;	
 		System.out.println("\n| Escala de cozinheiro | \n| Segunda - 08:00am até 18:00pm (10 horas) | "

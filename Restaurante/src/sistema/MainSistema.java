@@ -10,10 +10,10 @@ public class MainSistema {
 		Mesas m = new Mesas();
 		
 		// Contrata um funcionário, inserindo o cargo, escala, nome, o que está fazendo no momento e o id dos pedidos
-		func.contratarFunc("Cozinheiro", "200 horas mensais", "Jair", true, 0); 
-		func.contratarFunc("Garçom", "200 horas mensais", "Robertinho", true, 0);
-		func.contratarFunc("Garçom", "200 horas mensais", "Djenifer", true, 0);
-		func.contratarFunc("Caixa", "200 horas mensais", "Junior", true, 0);
+		func.contratarFunc("Cozinheiro", "Jair", true, 0); 
+		func.contratarFunc("Garçom", "Robertinho", true, 0);
+		func.contratarFunc("Garçom", "Djenifer", true, 0);
+		func.contratarFunc("Caixa", "Junior", true, 0);
 		//Coloca as mesas no estabelecimento
 		m.adicionarMesa(true, 4, 0, null);
 		m.adicionarMesa(true, 4, 1, null);
@@ -24,16 +24,16 @@ public class MainSistema {
 		// ------ Gerenciamento de cliente -------
 		System.out.println("\n| --Clientes-- |");
 		//Começa a chegar os clientes
-		c.inserirCliente("Robert", null, 0);
-		c.inserirCliente("Pedro", null, 0);
-		c.inserirCliente("Igor", null, 0);
-		c.inserirCliente("Gian", null, 0);
+		c.inserirCliente("Robert", null, 0, "Esperando uma mesa");
+		c.inserirCliente("Pedro", null, 0, "Esperando uma mesa");
+		c.inserirCliente("Igor", null, 0, "Esperando uma mesa");
+		c.inserirCliente("Gian", null, 0, "Esperando uma mesa");
 		//Verifica as informações de todos os clientes que chegaram.
 		c.consultaCliente();
 		
 		//Atualiza informações do cliente
 		System.out.println("\n  | --Atualizando info do Cliente-- |");
-		c.atualizarCliente("Gian", "Babaui", null);// Atualiza o cliente com tal nome e insere outro, caso esteja em uma mesa, também é possível altera-la se estiver disponível
+		c.atualizarCliente("Gian", "Roberta", null, "Esperando uma mesa");// Atualiza o cliente com tal nome e insere outro, caso esteja em uma mesa, também é possível altera-la se estiver disponível
 		//Mostra as informações dos clientes após as informações serem trocadas
 		System.out.println("\n | --Clientes após remoção e atualização-- |");	
 		c.consultaCliente();
@@ -49,26 +49,21 @@ public class MainSistema {
 		//Mostra o cardápio e os produtos a venda.
 		p.cardapio();
 		//O cliente faz um pedido caso cumpra os requisitos (Estar em uma mesa e ter um garçom disponível)
-		p.fazerPedido(func, c, "Pedro", "Em preparação", 1);
-		p.fazerPedido(func, c, "Igor", "Em preparação", 2);	
+		p.fazerPedido(func, c, "Pedro", 1);
+		p.fazerPedido(func, c, "Igor", 2);	
 		//Mostra os pedidos que foram feitos até agora;
 		p.consultaPedido();		
-		
-		
-		
-		
-		
+				
 		
 		
 		//Exclui um pedido caso tenha sido feito por engano, deletando suas informações estatísticas também.
-		p.deletarPedido(0, func);
-		//Atualiza as informações do pedido, caso tenha sido cancelado, ou esteja em outra etapa de preparo.
-		p.atualizarPedido(2, "Cancelado", func);// Inserir o número do pedido para localizar as informações, e em seguida inserir as informações atualizadas.
+//		p.deletarPedido(1, func);
+//		//Atualiza as informações do pedido, caso tenha sido cancelado, ou esteja em outra etapa de preparo.
+//		p.atualizarPedido(2, "Cancelado", func);// Inserir o número do pedido para localizar as informações, e em seguida inserir as informações atualizadas.
 		//Demonstra os pedidos após modificações.
 		System.out.println("\n  | --Pedidos após remoção e atualização-- |");
 		p.consultaPedido();	
 		
-		System.out.println("\n | --Mesas-- |");
 		//Demonstra os clientes e em quais mesas então
 		System.out.println("| -- Consulta dos Clientes -- |");
 		c.consultaCliente();
@@ -80,10 +75,21 @@ public class MainSistema {
 		m.retirarMesa(2);
 		//Após terminar de comer e pagar, o cliente sai do restaurante
 		System.out.println("\n  | --Removendo Cliente-- |");
-		c.deletarCliente(m, "Igor"); // Deleta o Cliente com tal nome.
+//		c.deletarCliente(m, "Igor"); // Deleta o Cliente com tal nome.
 		//Atualização de mesas após clientes sairem ou coisa do tipo
 		System.out.println("\n  | --|Atualizando mesa-- |");
-		m.atualizarMesa(2, 2, true, 4, null);//Atualiza as informações da mesa com o número inserido, (Num da mesa, disp da mesa, quantas cadeiras disp e cliente atualizado).
+		m.consultaMesas();
+		
+		System.out.println("| --- Após alguns minutos --- |");
+		p.atualizarRestaurant(c, func, m);
+		p.atualizarRestaurant(c, func, m);
+		p.atualizarRestaurant(c, func, m);
+		p.atualizarRestaurant(c, func, m);
+
+		
+		p.consultaPedido();
+		c.consultaCliente();
+		func.mostraFunc();
 		m.consultaMesas();
 		//Tabela de escalas de cada função
 //		func.escalasFunc();

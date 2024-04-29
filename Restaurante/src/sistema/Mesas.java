@@ -122,7 +122,8 @@ public class Mesas {
 					aux.setDisponivel(false);
 					conversor = aux.getNumMesa() + "";
 					System.out.println(cliente + " escolheu a mesa: " + aux.getNumMesa());
-					cli.atualizarCliente(cliente, cliente, conversor);
+					cli.atualizarCliente(cliente, cliente, conversor, "Esperando um garçom");
+					
 					return;
 				} else {
 					System.out.println(cliente + " tentou pegar a mesa n°" + aux.getNumMesa() + ", mas ela está ocupada.");
@@ -146,13 +147,13 @@ public class Mesas {
 						System.out.println(cliente + " escolheu a mesa: " + aux.getNumMesa());
 						//Verifica se o cliente predominante está acompanhado
 						if (quantClientes == 2) {
-							cli.inserirCliente(acompanhante1, conversor, 0);
+							cli.inserirCliente(acompanhante1, conversor, 0, "Esperando um garçom");
 						} else if (quantClientes == 3) {
-							cli.inserirCliente(acompanhante2, conversor, 0);
+							cli.inserirCliente(acompanhante2, conversor, 0, "Esperando um garçom");
 						} else if (quantClientes == 4) {
-							cli.inserirCliente(acompanhante3, conversor, 0);
+							cli.inserirCliente(acompanhante3, conversor, 0, "Esperando um garçom");
 						}							
-						cli.atualizarCliente(cliente, cliente, conversor);
+						cli.atualizarCliente(cliente, cliente, conversor, "Esperando um garçom");
 						return;
 					} else {
 						System.out.println(cliente + " e seus acompanhantes tentaram pegar a mesa n°" + aux.getNumMesa() + ", mas ela está ocupada.");

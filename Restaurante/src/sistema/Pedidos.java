@@ -13,7 +13,7 @@ public class Pedidos {
 	}
 	
 	// Função para adicionar um pedido.
-	public void fazerPedido(Funcionarios func, Cliente cli, String nomeCliente, String stats, int produtoNum) {
+	public void fazerPedido(Funcionarios func, Cliente cli, String nomeCliente, int produtoNum) {
 	    double valor;
 	    Nodo auxFunc = func.getInicio();
 	    Nodo auxCli = cli.getInicio();
@@ -54,14 +54,14 @@ public class Pedidos {
 		                                System.out.println("Não temos esse pedido, caso ainda queira pedir algo, tente fazer o pedido novamente.");
 		                                return;
 		                        }
-		                        
-		                        Nodo novoNodo = new Nodo(stats, valor, countId);
+		                        Nodo novoNodo = new Nodo("Anotado", valor, countId);
 		                        novoNodo.setProx(inicio);
 		                        inicio = novoNodo;
 		                        System.out.println("Pedido " + countId + " feito com sucesso, aguarde a preparação");
 		                        auxFunc.setNumeracaoPedido(countId);
 		                        auxFunc.setStatsFunc(false);
 		                        auxCli.setNumeroDoPedido(countId);
+		                        auxCli.setStatsCliente("Esperando pedido");
 		                        countId++;		                	
 		                        return;
 		                    } 
@@ -92,9 +92,120 @@ public class Pedidos {
 		}		
 	}
 	
-	//Função para atualizar o restaurante e mostrar informações gerais
-	public void atualizarRestaurant() {
+	//Função para atualizar o restaurante em tempo real, mudar os status dos pedidos, funcionários etc.
+	public void atualizarRestaurant(Cliente cli, Funcionarios func, Mesas mesa) {
+		Nodo auxCli = cli.getInicio();
+		Nodo auxFunc = func.getInicio();
+		Nodo auxMesa = mesa.getInicio();
+		Nodo auxPed = inicio;
 		
+		if (func.vazia()) {
+	        System.out.println("Sem funcionários no momento.");
+	        return;
+	    }
+	    if (cli.vazia()) {
+	        System.out.println("Sem clientes para fazer pedidos no momento.");
+	        return;
+	    }
+	    if (vazia()) {
+	        System.out.println("Sem pedidos no momento.");
+	        return;
+	    }
+		
+	    while (auxPed != null) {//Roda a lista de pedidos e altera todos os status, como se um tempo tivesse se passado e pedidos ficassem prontos e etc.
+	    	
+	    	while (auxCli != null) {
+	    		if (auxCli.getStatsCliente().equals("Comendo")) {
+	    			while (auxMesa != null) {
+	    				String conversor = auxMesa.getNumMesa() + "";
+	    				if (conversor.equals(auxPed.getMesa())) {
+	    					
+	    				}
+	    			}
+		    		while (auxFunc != null) {
+		    			if(auxFunc.getCargo().contains("Caixa")) {
+		    				if(auxFunc.isStatsFunc()) {
+		    					auxCli.setStatsCliente("No caixa");
+		    					auxFunc.setDisponivel(false);
+		    					System.out.println("Cliente " + auxCli.getNome() + " no caixa para pagamento.");
+		    				} else {
+		    					auxCli.setStatsCliente("Na fila do caixa");
+		    				}
+		    			} else System.out.println("Estamos sem caixas por agora, logo tentaremos resolver esta situação.");
+		    			auxFunc = auxFunc.getProx();
+		    		}
+		    		
+		    	}	    		
+	    		auxCli = auxCli.getProx();
+	    	}
+	    	
+	    	
+	    	auxCli = cli.getInicio();
+	    	auxFunc = func.getInicio();
+	    	
+	    	if (auxPed.getStatsPedido().equals("Pronto")) {//Faz a mudança de status dos pedidos com status: "Pronto".
+	    		while (auxFunc != null) {
+	    			if (auxFunc.getCargo().contains("Garçom")) {
+	    				if(auxFunc.isStatsFunc()) {
+	    					auxPed.setStatsPedido("Entregue");
+	    					while(auxCli != null) {
+	    						if(auxCli.getNumeroDoPedido() == auxPed.getNumPedido()) {
+	    							auxCli.setStatsCliente("Comendo");
+	    							System.out.println("Pedido N.°" + auxPed.getNumPedido() + " do cliente " + auxCli.getNome() + " pronto.");
+	    						}
+	    						auxCli = auxCli.getProx();
+	    					}
+	    					
+	    					
+	    				} else System.out.println("Os garçons estão ocupados no momento, espere mais um pouco.");
+	    			}
+	    			auxFunc = auxFunc.getProx();
+	    		}
+	    	}
+	    	
+	    	auxFunc = func.getInicio();
+	    	
+	    	if (auxPed.getStatsPedido().equals("Na cozinha")) {//Faz a mudança de status dos pedidos com status: "Na cozinha".
+	    		while (auxFunc != null) {
+	    			if(auxFunc.getCargo().contains("Cozinheiro")) {
+	    				if (auxFunc.getNumeracaoPedido() == auxPed.getNumPedido()) {
+	    					func.atualizarStatsFunc(auxPed.getNumPedido());
+	    					auxPed.setStatsPedido("Pronto");// Muda o status do pedido. para que um garçom venha pegar e servir o cliente.
+	    					System.out.println("Pedido N.°" + auxPed.getNumPedido() + " pronto, esperando um garçom vir pegar.");
+	    				}
+	    			}
+	    			auxFunc = auxFunc.getProx();
+	    		}
+	    	}
+	    	
+	    	auxFunc = func.getInicio();//Reinicia a fila de funcionários para a próxima verificação.
+	    	
+	        if (auxPed.getStatsPedido().equals("Anotado")) {//Faz a mudança de status dos pedidos com status: "Anotados".
+	        	while (auxFunc != null) {
+	        		if (auxFunc.getCargo().contains("Cozinheiro")) {
+	                	if (auxFunc.isStatsFunc()) {
+		                        auxFunc.setStatsFunc(false);//Atualiza o status do Funcionário Cozinheiro para ocupado.
+		                        auxFunc.setNumeracaoPedido(auxPed.getNumPedido());// Atualiza o número do pedido que o funcionário está trabalhando no momento.
+		                        auxFunc = func.getInicio();//Reinicia a fila de funcionários
+		                        while (auxFunc != null) {//Procura o Garçom que tem o número do pedido salvo e deixa ele livre para fazer/entregar pedidos.
+		                        	if ( auxFunc.getCargo().contains("Garçom")) {
+		                        		if(auxFunc.getNumeracaoPedido() == auxPed.getNumPedido()) {
+				                        	func.atualizarStatsFunc(auxFunc.getIdFunc());
+			                        	}
+		                        	}
+		                        	auxFunc = auxFunc.getProx();
+		                        }
+		                        auxPed.setStatsPedido("Na cozinha");  
+		                        System.out.println("Pedido n.°" + auxPed.getNumPedido() + " enviado para a cozinha, aguarde ele ficar pronto.");
+	                	} else System.out.println("A cozinha está cheia, espere um tempo para o seu pedido ficar pronto.");
+	        		} 
+	        		if (auxFunc != null) {
+	        			auxFunc = auxFunc.getProx();
+	        		}	        		
+	        	}
+	        }
+	        auxPed = auxPed.getProx();
+	    }
 	}
 	
 	//Função para atualizar pedidos
@@ -104,7 +215,7 @@ public class Pedidos {
 			return;
 		}
 		Nodo aux = inicio;
-		if (aux.getProx() != null) {
+		if (aux != null) {
 			if (aux.getNumPedido() == numPedido) {
 				aux.setStatsPedido(atualizarStats);
 				if(atualizarStats.contains("Cancelado")) {
@@ -152,7 +263,7 @@ public class Pedidos {
         System.out.print("| 1 - Spagethi     | R$ 17,50     |\n");
         System.out.print("| 2 - Porção mista | R$ 15,75     |\n");
         System.out.print("| 3 - Batata frita | R$ 11,00     |\n");
-        System.out.print("| 4 - Refri 2L 	   | R$ 10,99     |\n");
+        System.out.print("| 4 - Soupa   	   | R$ 10,99     |\n");
         System.out.print("| 5 - Suco Natural | R$ 3,50      |\n");
         System.out.print("|--------------------------------------------------------|\n");
         System.out.print("|Obs:. Informe o número do pedido ao garçom para faze-lo.|\n");
