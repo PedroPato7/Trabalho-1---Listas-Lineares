@@ -85,6 +85,7 @@ public class MainSistema {
 		p.atualizarRestaurant(c, func, m);
 		p.atualizarRestaurant(c, func, m);
 		p.atualizarRestaurant(c, func, m);
+		p.atualizarRestaurant(c, func, m);
 
 		
 		p.consultaPedido();

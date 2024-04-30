@@ -37,6 +37,7 @@ public class Pedidos {
 		                        switch (produtoNum) {
 		                            case 1:
 		                                valor = 17.50;
+		                                
 		                                break;
 		                            case 2:
 		                                valor = 15.75;
@@ -116,17 +117,27 @@ public class Pedidos {
 	    	
 	    	while (auxCli != null) {
 	    		if (auxCli.getStatsCliente().equals("Comendo")) {
-	    			while (auxMesa != null) {
+	    			while (auxMesa != null) {//Verifica se tem mais de uma pessoa na mesa, e muda as informações dos clientes e da mesa para que possa ser usada de novo.
 	    				String conversor = auxMesa.getNumMesa() + "";
-	    				if (conversor.equals(auxPed.getMesa())) {
+	    				if (conversor.equals(auxCli.getMesa())) {
+	    					if(auxMesa.getCadeirasDisp() < 3) {
+	    						System.out.println("Ainda ha clientes na mesa, ela vai continuar ocupada ainda");
+	    						auxMesa.setCadeirasDisp((auxMesa.getCadeirasDisp() + 1));
+	    						auxCli.setMesa("Saiu");
+	    					} else {
+	    						System.out.println("O cliente " + auxCli.getNome() + " saiu da mesa e foi pagar aconta.");
+	    						mesa.atualizarMesa(auxMesa.getNumMesa(), auxMesa.getNumMesa(), true, 4, "Vazio");
+	    						auxCli.setMesa("Saiu");	    							    						
+	    					}
 	    					
 	    				}
+	    				auxMesa = auxMesa.getProx();
 	    			}
-		    		while (auxFunc != null) {
+		    		while (auxFunc != null) {//Muda o status do cliente para ir pagar a conta no caixa caso esteja disponivel
 		    			if(auxFunc.getCargo().contains("Caixa")) {
-		    				if(auxFunc.isStatsFunc()) {
+		    				if(auxFunc.isStatsFunc()) {// Verifica se o caixa está ocupado
 		    					auxCli.setStatsCliente("No caixa");
-		    					auxFunc.setDisponivel(false);
+		    					auxFunc.setStatsFunc(false);;
 		    					System.out.println("Cliente " + auxCli.getNome() + " no caixa para pagamento.");
 		    				} else {
 		    					auxCli.setStatsCliente("Na fila do caixa");
@@ -134,7 +145,6 @@ public class Pedidos {
 		    			} else System.out.println("Estamos sem caixas por agora, logo tentaremos resolver esta situação.");
 		    			auxFunc = auxFunc.getProx();
 		    		}
-		    		
 		    	}	    		
 	    		auxCli = auxCli.getProx();
 	    	}
@@ -145,18 +155,16 @@ public class Pedidos {
 	    	
 	    	if (auxPed.getStatsPedido().equals("Pronto")) {//Faz a mudança de status dos pedidos com status: "Pronto".
 	    		while (auxFunc != null) {
-	    			if (auxFunc.getCargo().contains("Garçom")) {
+	    			if (auxFunc.getCargo().contains("Garçom")) {//Procura os funcionarios com o cargo de Garçom.
 	    				if(auxFunc.isStatsFunc()) {
-	    					auxPed.setStatsPedido("Entregue");
+	    					auxPed.setStatsPedido("Entregue");//Muda o status do pedido.
 	    					while(auxCli != null) {
 	    						if(auxCli.getNumeroDoPedido() == auxPed.getNumPedido()) {
 	    							auxCli.setStatsCliente("Comendo");
 	    							System.out.println("Pedido N.°" + auxPed.getNumPedido() + " do cliente " + auxCli.getNome() + " pronto.");
 	    						}
 	    						auxCli = auxCli.getProx();
-	    					}
-	    					
-	    					
+	    					}	    					
 	    				} else System.out.println("Os garçons estão ocupados no momento, espere mais um pouco.");
 	    			}
 	    			auxFunc = auxFunc.getProx();
@@ -167,7 +175,7 @@ public class Pedidos {
 	    	
 	    	if (auxPed.getStatsPedido().equals("Na cozinha")) {//Faz a mudança de status dos pedidos com status: "Na cozinha".
 	    		while (auxFunc != null) {
-	    			if(auxFunc.getCargo().contains("Cozinheiro")) {
+	    			if(auxFunc.getCargo().contains("Cozinheiro")) {// Procura os funcionários com o cargo de cozinheiro.
 	    				if (auxFunc.getNumeracaoPedido() == auxPed.getNumPedido()) {
 	    					func.atualizarStatsFunc(auxPed.getNumPedido());
 	    					auxPed.setStatsPedido("Pronto");// Muda o status do pedido. para que um garçom venha pegar e servir o cliente.

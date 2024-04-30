@@ -27,7 +27,7 @@ public class Cliente{
 		Nodo aux = inicio;
 		while (aux != null) {
 			if(aux.getMesa() != null) {
-				System.out.println("- " + aux.getNome() + " | Número da mesa - " + aux.getMesa() + " | Stats: " + aux.getStatsCliente());
+				System.out.println("- " + aux.getNome() + " | Mesa - " + aux.getMesa() + " | Stats: " + aux.getStatsCliente());
 			} else {
 				System.out.println("- " + aux.getNome() + " | Nenhuma mesa escolhida ainda " + "| Stats: " + aux.getStatsCliente());
 			}

@@ -20,6 +20,7 @@ public class Nodo {
 	private String nome;
 	private String mesa;
 	private int numeroDoPedido;
+	private int idComandaCliente;//Id para conectar com o cliente
 	private String statsCliente;
 	/*
 	 - Esperando uma mesa
@@ -44,13 +45,18 @@ public class Nodo {
 	private int idFunc;
 	private boolean statsFunc;
 	private int numeracaoPedido;
+	//Atributos de Pagamento
+	private int idComanda;//Id para conectar com o cliente
+	private double comanda;
+	private String[] produtosPedidos;
 	
 	//Função dos Clientes
-	public Nodo(String nome, String mesa, int numeroPed, String stats) {
+	public Nodo(String nome, String mesa, int numeroPed, String stats, int idComand) {
 		this.nome = nome;
 		this.mesa = mesa;
 		this.numeroDoPedido = numeroPed;
 		this.statsCliente = stats;
+		this.idComandaCliente = idComand;
 		this.prox = null;
 	}
 	//Função dos pedidos
