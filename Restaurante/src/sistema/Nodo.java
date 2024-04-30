@@ -21,6 +21,7 @@ public class Nodo {
 	private String mesa;
 	private int numeroDoPedido;
 	private int idComandaCliente;//Id para conectar com o cliente
+	private Double valorComanda;
 	private String statsCliente;
 	/*
 	 - Esperando uma mesa
@@ -45,18 +46,24 @@ public class Nodo {
 	private int idFunc;
 	private boolean statsFunc;
 	private int numeracaoPedido;
-	//Atributos de Pagamento
+	//Atributos de ProdutosPedidos
 	private int idComanda;//Id para conectar com o cliente
-	private double comanda;
-	private String[] produtosPedidos;
+	private String descProd;//Descrição do produto que foi pedido
 	
 	//Função dos Clientes
-	public Nodo(String nome, String mesa, int numeroPed, String stats, int idComand) {
+	public Nodo(String nome, String mesa, int numeroPed, String stats, int idComand, Double valorComanda) {
 		this.nome = nome;
 		this.mesa = mesa;
 		this.numeroDoPedido = numeroPed;
 		this.statsCliente = stats;
 		this.idComandaCliente = idComand;
+		this.valorComanda = valorComanda;
+		this.prox = null;
+	}
+	//Função de ProdutosPedidos
+	public Nodo(int idComanda, String descProd) {
+		this.idComanda = idComanda;
+		this.descProd = descProd;
 		this.prox = null;
 	}
 	//Função dos pedidos
@@ -106,6 +113,30 @@ public class Nodo {
 	}
 	public void setStatsCliente(String statsCliente) {
 		this.statsCliente = statsCliente;
+	}
+	public int getIdComandaCliente() {
+		return idComandaCliente;
+	}
+	public void setIdComandaCliente(int idComandaCliente) {
+		this.idComandaCliente = idComandaCliente;
+	}
+	public Double getValorComanda() {
+		return valorComanda;
+	}
+	public void setValorComanda(Double valorComanda) {
+		this.valorComanda = valorComanda;
+	}
+	public int getIdComanda() {
+		return idComanda;
+	}
+	public void setIdComanda(int idComanda) {
+		this.idComanda = idComanda;
+	}
+	public String getDescProd() {
+		return descProd;
+	}
+	public void setDescProd(String descProd) {
+		this.descProd = descProd;
 	}
 	public int getNumeroDoPedido() {
 		return numeroDoPedido;

@@ -30,18 +30,47 @@ public class Funcionarios {
 			aux = aux.getProx();
 			}
 		}
-	//Dispensa um funcionário do restaurante -------------------------TALVEZ DE ERRO CASO EU FAÇA UM PEDIDO COM TAL FUNCIONÁRIO, ALOQUE AS INFORMAÇÕES DOS PEDIDOS NELE E DISPENSE LOGO EM SEGUIDA.
+	//Função para pagar as contas no caixa
+	public void pagarComanda(String nomeCliente, ProdutosPedidos pd, Cliente cli, String formaPag) {
+		Nodo auxCli = cli.getInicio();
+		Nodo auxFunc = inicio;
+		while (auxCli != null) {
+			if (auxCli.getNome() == nomeCliente) {
+				if (auxCli.getStatsCliente().contains("No caixa")) {
+					if (formaPag == "Cartão") {
+						
+					}
+				} else {
+					System.out.println("O cliente ainda não está sendo atendido pelo caixa.");
+				}
+			}
+			auxCli = auxCli.getProx();
+		}
+	}
+	
+	//Dispensa um funcionário do restaurante.
 	public void dispensarFunc(int id) {
 		if (vazia()) return;
 		if (inicio.getIdFunc() == id) {
-			inicio = inicio.getProx();
-			return;
+			if (inicio.isStatsFunc()) {
+				inicio = inicio.getProx();
+				return;
+			} else {
+				System.out.println("Este funcionário ainda tem deveres para terminar, espere-o acabar.");
+				return;
+			}
+			
 		}
 		Nodo aux = inicio;
 		while (aux.getProx() != null) {
 			if(aux.getProx().getIdFunc() == id) {
-				aux.setProx(aux.getProx().getProx());
-				return;
+				if (aux.isStatsFunc()) {//Verifica se ele está atendendo ou não
+					aux.setProx(aux.getProx().getProx());
+					return;
+				} else {
+					System.out.println("Este funcionário ainda tem deveres para terminar, espere-o acabar.");
+					return;
+				}
 			}
 			aux = aux.getProx();
 		}	

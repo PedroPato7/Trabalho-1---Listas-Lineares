@@ -11,11 +11,15 @@ public class Cliente{
 		return inicio;
 	}
 	
+	int idComanda = 1; //Da o id das comandas todas diferentes, pois aumenta cada vez que um cliente novo chega.
+	
 	// Função para inserir no inicio.
-	public void inserirCliente(String nome, String mesa, int numPed, String stats) {
-		Nodo novoNodo = new Nodo(nome, mesa, numPed, stats);
+	public void inserirCliente(String nome, String mesa, int numPed, String stats, ProdutosPedidos pd) {
+		Nodo novoNodo = new Nodo(nome, mesa, numPed, stats, idComanda, 0.00);
 		novoNodo.setProx(inicio);
 		inicio = novoNodo;
+		pd.criarComanda(idComanda, "Nenhum pedido ainda.");
+		idComanda++;
 	}
 	
 	//Função para mostrar lista
@@ -86,4 +90,46 @@ public class Cliente{
 			aux = aux.getProx();
 		}
 	}	
+	
+	//Função que leva o cliente ao caixa quando ele quiser ir
+	public void irPagar(Mesas mesa, Funcionarios func, String nomeCliente) {
+		Nodo auxCli = inicio;
+		Nodo auxFunc = func.getInicio();
+		Nodo auxMesa = mesa.getInicio();
+		while (auxCli != null) {
+			if (auxCli.getNome().equals(nomeCliente)) {
+				if (auxCli.getStatsCliente().equals("Comendo")) {
+	    			while (auxMesa != null) {//Verifica se tem mais de uma pessoa na mesa, e muda as informações dos clientes e da mesa para que possa ser usada de novo.
+	    				String conversor = auxMesa.getNumMesa() + "";
+	    				if (conversor.equals(auxCli.getMesa())) {
+	    					if(auxMesa.getCadeirasDisp() < 3) {
+	    						System.out.println("Ainda ha clientes na mesa, ela vai continuar ocupada ainda");
+	    						auxMesa.setCadeirasDisp((auxMesa.getCadeirasDisp() + 1));
+	    						auxCli.setMesa("Saiu");
+	    					} else {
+	    						System.out.println("O cliente " + auxCli.getNome() + " saiu da mesa e foi pagar aconta.");
+	    						mesa.atualizarMesa(auxMesa.getNumMesa(), auxMesa.getNumMesa(), true, 4, "Vazio");
+	    						auxCli.setMesa("Saiu");	    							    						
+	    					}
+	    					
+	    				}
+	    				auxMesa = auxMesa.getProx();
+	    			}
+		    		while (auxFunc != null) {//Muda o status do cliente para ir pagar a conta no caixa caso esteja disponivel
+		    			if(auxFunc.getCargo().contains("Caixa")) {
+		    				if(auxFunc.isStatsFunc()) {// Verifica se o caixa está ocupado
+		    					auxCli.setStatsCliente("No caixa");
+		    					auxFunc.setStatsFunc(false);;
+		    					System.out.println("Cliente " + auxCli.getNome() + " no caixa para pagamento.");
+		    				} else {
+		    					auxCli.setStatsCliente("Na fila do caixa");
+		    				}
+		    			} else System.out.println("Estamos sem caixas por agora, logo tentaremos resolver esta situação.");
+		    			auxFunc = auxFunc.getProx();
+		    		}
+		    	}	 
+			}    		   		
+    		auxCli = auxCli.getProx();
+    	}
+	}
 }

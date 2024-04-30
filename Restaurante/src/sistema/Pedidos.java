@@ -13,7 +13,7 @@ public class Pedidos {
 	}
 	
 	// Função para adicionar um pedido.
-	public void fazerPedido(Funcionarios func, Cliente cli, String nomeCliente, int produtoNum) {
+	public void fazerPedido(Funcionarios func, Cliente cli, String nomeCliente, int produtoNum, ProdutosPedidos pd) {
 	    double valor;
 	    Nodo auxFunc = func.getInicio();
 	    Nodo auxCli = cli.getInicio();
@@ -37,19 +37,28 @@ public class Pedidos {
 		                        switch (produtoNum) {
 		                            case 1:
 		                                valor = 17.50;
-		                                
+		                                auxCli.setValorComanda(auxCli.getValorComanda() + 17.50);
+		                                pd.marcarNaComanda(auxCli.getIdComandaCliente(), "Spagethi");
 		                                break;
 		                            case 2:
 		                                valor = 15.75;
+		                                auxCli.setValorComanda(auxCli.getValorComanda() + 15.75);
+		                                pd.marcarNaComanda(auxCli.getIdComandaCliente(), "Porção mista");
 		                                break;
 		                            case 3:
 		                                valor = 11.00;
+		                                auxCli.setValorComanda(auxCli.getValorComanda() + 11.00);
+		                                pd.marcarNaComanda(auxCli.getIdComandaCliente(), "Batata Frita");
 		                                break;
 		                            case 4:
 		                                valor = 10.99;
+		                                auxCli.setValorComanda(auxCli.getValorComanda() + 10.99);
+		                                pd.marcarNaComanda(auxCli.getIdComandaCliente(), "Soupa");
 		                                break;
 		                            case 5:
 		                                valor = 3.50;
+		                                auxCli.setValorComanda(auxCli.getValorComanda() + 3.50);
+		                                pd.marcarNaComanda(auxCli.getIdComandaCliente(), "Suco Natural");
 		                                break;
 		                            default:
 		                                System.out.println("Não temos esse pedido, caso ainda queira pedir algo, tente fazer o pedido novamente.");
@@ -94,10 +103,9 @@ public class Pedidos {
 	}
 	
 	//Função para atualizar o restaurante em tempo real, mudar os status dos pedidos, funcionários etc.
-	public void atualizarRestaurant(Cliente cli, Funcionarios func, Mesas mesa) {
+	public void atualizarRestaurant(Cliente cli, Funcionarios func) {
 		Nodo auxCli = cli.getInicio();
 		Nodo auxFunc = func.getInicio();
-		Nodo auxMesa = mesa.getInicio();
 		Nodo auxPed = inicio;
 		
 		if (func.vazia()) {
@@ -113,42 +121,7 @@ public class Pedidos {
 	        return;
 	    }
 		
-	    while (auxPed != null) {//Roda a lista de pedidos e altera todos os status, como se um tempo tivesse se passado e pedidos ficassem prontos e etc.
-	    	
-	    	while (auxCli != null) {
-	    		if (auxCli.getStatsCliente().equals("Comendo")) {
-	    			while (auxMesa != null) {//Verifica se tem mais de uma pessoa na mesa, e muda as informações dos clientes e da mesa para que possa ser usada de novo.
-	    				String conversor = auxMesa.getNumMesa() + "";
-	    				if (conversor.equals(auxCli.getMesa())) {
-	    					if(auxMesa.getCadeirasDisp() < 3) {
-	    						System.out.println("Ainda ha clientes na mesa, ela vai continuar ocupada ainda");
-	    						auxMesa.setCadeirasDisp((auxMesa.getCadeirasDisp() + 1));
-	    						auxCli.setMesa("Saiu");
-	    					} else {
-	    						System.out.println("O cliente " + auxCli.getNome() + " saiu da mesa e foi pagar aconta.");
-	    						mesa.atualizarMesa(auxMesa.getNumMesa(), auxMesa.getNumMesa(), true, 4, "Vazio");
-	    						auxCli.setMesa("Saiu");	    							    						
-	    					}
-	    					
-	    				}
-	    				auxMesa = auxMesa.getProx();
-	    			}
-		    		while (auxFunc != null) {//Muda o status do cliente para ir pagar a conta no caixa caso esteja disponivel
-		    			if(auxFunc.getCargo().contains("Caixa")) {
-		    				if(auxFunc.isStatsFunc()) {// Verifica se o caixa está ocupado
-		    					auxCli.setStatsCliente("No caixa");
-		    					auxFunc.setStatsFunc(false);;
-		    					System.out.println("Cliente " + auxCli.getNome() + " no caixa para pagamento.");
-		    				} else {
-		    					auxCli.setStatsCliente("Na fila do caixa");
-		    				}
-		    			} else System.out.println("Estamos sem caixas por agora, logo tentaremos resolver esta situação.");
-		    			auxFunc = auxFunc.getProx();
-		    		}
-		    	}	    		
-	    		auxCli = auxCli.getProx();
-	    	}
-	    	
+	    while (auxPed != null) {//Roda a lista de pedidos e altera todos os status, como se um tempo tivesse se passado e pedidos ficassem prontos e etc. 	
 	    	
 	    	auxCli = cli.getInicio();
 	    	auxFunc = func.getInicio();

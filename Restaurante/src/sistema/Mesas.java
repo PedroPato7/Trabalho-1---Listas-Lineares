@@ -95,7 +95,7 @@ public class Mesas {
 	}	
 	
 	// --------------- Função para o cliente escolher uma mesa.
-	public void escolherMesa(Cliente cli, String cliente, boolean acompanhado, int quantClientes, String acompanhante1, String acompanhante2, String acompanhante3) {
+	public void escolherMesa(Cliente cli, String cliente, boolean acompanhado, int quantClientes, String acompanhante1, String acompanhante2, String acompanhante3, ProdutosPedidos pd) {
 		
 		Nodo aux = inicio;
 		//Verifica se existe cliente para solicitar mesas.		
@@ -147,11 +147,11 @@ public class Mesas {
 						System.out.println(cliente + " escolheu a mesa: " + aux.getNumMesa());
 						//Verifica se o cliente predominante está acompanhado
 						if (quantClientes == 2) {
-							cli.inserirCliente(acompanhante1, conversor, 0, "Esperando um garçom");
+							cli.inserirCliente(acompanhante1, conversor, 0, "Esperando um garçom", pd);
 						} else if (quantClientes == 3) {
-							cli.inserirCliente(acompanhante2, conversor, 0, "Esperando um garçom");
+							cli.inserirCliente(acompanhante2, conversor, 0, "Esperando um garçom", pd);
 						} else if (quantClientes == 4) {
-							cli.inserirCliente(acompanhante3, conversor, 0, "Esperando um garçom");
+							cli.inserirCliente(acompanhante3, conversor, 0, "Esperando um garçom", pd);
 						}							
 						cli.atualizarCliente(cliente, cliente, conversor, "Esperando um garçom");
 						return;
