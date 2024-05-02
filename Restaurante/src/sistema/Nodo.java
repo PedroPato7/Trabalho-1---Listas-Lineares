@@ -1,7 +1,5 @@
 package sistema;
-
 public class Nodo {	
-	
 	private Nodo prox;
 	
 	//Atributos de pedidos
@@ -30,9 +28,8 @@ public class Nodo {
 	 - Comendo
 	 - Na fila do caixa
 	 - No caixa
-	 - Foi embora
+	 - Saiu do restaurante
 	 */
-	// private double comandaCliente; ---------- Ideia de fazer a comanda de produtos pedidos pelo cliente, cobrando pelo produto de qualquer maneira se ele estiver com o status "Na cozinha", antes disso, pode ser cancelado sem cobrança.
 	
 	//Atributos de Mesas
 	private boolean disponivel;
@@ -49,6 +46,18 @@ public class Nodo {
 	//Atributos de ProdutosPedidos
 	private int idComanda;//Id para conectar com o cliente
 	private String descProd;//Descrição do produto que foi pedido
+	//Atributos de Histórico de pagamentos de clientes
+	private int idHistorico;
+	private String nomeClienteHist;
+	private Double valorPagoHist;
+	private String formPagHist;
+	private Double troco;
+	// Atributos de Estastísticas
+	private int filaAlmo; // Num de pessoas na fila para almoçar
+	private int filaCaixa;// Num de pessoas na fila do caixa
+	private int quantComendo; // Num de pessoas comendo
+	private int quantEsperandoPed; // Num de pessoas esperando pedido
+	private int quantMesas; // Num de mesas disponíveis
 	
 	//Função dos Clientes
 	public Nodo(String nome, String mesa, int numeroPed, String stats, int idComand, Double valorComanda) {
@@ -64,6 +73,24 @@ public class Nodo {
 	public Nodo(int idComanda, String descProd) {
 		this.idComanda = idComanda;
 		this.descProd = descProd;
+		this.prox = null;
+	}
+	//Função do histórico
+	public Nodo(int idHist, String nomeCli, Double valorPag, String formPag, Double troco) {
+		this.idHistorico = idHist;
+		this.nomeClienteHist = nomeCli;
+		this.valorPagoHist = valorPag;
+		this.formPagHist = formPag;
+		this.troco = troco;
+		this.prox = null;
+	}
+	//Função Estastísticas
+	public Nodo(int filaAlmo, int filaCaixa, int quantComendo, int quantEsperandoPed, int quantMesas) {
+		this.filaAlmo = filaAlmo;
+		this.filaCaixa = filaCaixa;
+		this.quantComendo = quantComendo;
+		this.quantEsperandoPed = quantEsperandoPed;
+		this.quantMesas = quantMesas;
 		this.prox = null;
 	}
 	//Função dos pedidos
@@ -135,8 +162,68 @@ public class Nodo {
 	public String getDescProd() {
 		return descProd;
 	}
+	public int getFilaAlmo() {
+		return filaAlmo;
+	}
+	public void setFilaAlmo(int filaAlmo) {
+		this.filaAlmo = filaAlmo;
+	}
+	public int getFilaCaixa() {
+		return filaCaixa;
+	}
+	public void setFilaCaixa(int filaCaixa) {
+		this.filaCaixa = filaCaixa;
+	}
+	public int getQuantComendo() {
+		return quantComendo;
+	}
+	public void setQuantComendo(int quantComendo) {
+		this.quantComendo = quantComendo;
+	}
+	public int getQuantEsperandoPed() {
+		return quantEsperandoPed;
+	}
+	public void setQuantEsperandoPed(int quantEsperandoPed) {
+		this.quantEsperandoPed = quantEsperandoPed;
+	}
+	public int getQuantMesas() {
+		return quantMesas;
+	}
+	public void setQuantMesas(int quantMesas) {
+		this.quantMesas = quantMesas;
+	}
 	public void setDescProd(String descProd) {
 		this.descProd = descProd;
+	}
+	public Double getTroco() {
+		return troco;
+	}
+	public void setTroco(Double troco) {
+		this.troco = troco;
+	}
+	public int getIdHistorico() {
+		return idHistorico;
+	}
+	public void setIdHistorico(int idHistorico) {
+		this.idHistorico = idHistorico;
+	}
+	public String getNomeClienteHist() {
+		return nomeClienteHist;
+	}
+	public void setNomeClienteHist(String nomeClienteHist) {
+		this.nomeClienteHist = nomeClienteHist;
+	}
+	public Double getValorPagoHist() {
+		return valorPagoHist;
+	}
+	public void setValorPagoHist(Double valorPagoHist) {
+		this.valorPagoHist = valorPagoHist;
+	}
+	public String getFormPagHist() {
+		return formPagHist;
+	}
+	public void setFormPagHist(String formPagHist) {
+		this.formPagHist = formPagHist;
 	}
 	public int getNumeroDoPedido() {
 		return numeroDoPedido;

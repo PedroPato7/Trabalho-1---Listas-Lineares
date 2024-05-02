@@ -9,9 +9,7 @@ public class ProdutosPedidos {
 	}
 	public Nodo getInicio() {
 		return inicio;
-	}
-
-	
+	}	
 	// Função para inserir no inicio.
 		public void criarComanda(int idComanda, String descProd) {//Salva o id da comanda para se ligar ao cliente
 			Nodo novoNodo = new Nodo(idComanda, descProd);
@@ -69,4 +67,79 @@ public class ProdutosPedidos {
 	        System.out.print("|---------------------------------------------------------------|\n");
 	        
 		}
+		
+		public void deletarComanda(int idComandaCliente, Cliente cli) {
+			Nodo auxComanda = inicio;
+			Nodo auxCli = cli.getInicio();
+			if (vazia()) return;
+			if (inicio.getIdComanda() == idComandaCliente) {//Acha a comanda do cliente
+				while(auxCli != null) {//Acha o cliente da comanda
+					if (auxCli.getIdComandaCliente() == idComandaCliente) {
+						if (auxCli.getValorComanda() <= 0) {
+							inicio = inicio.getProx();
+							return;
+						} else {
+							switch (auxComanda.getDescProd()) {// Verifica qual item foi comprado na comanda
+                            case "Spagethi":
+                                auxCli.setValorComanda(auxCli.getValorComanda() - 17.50);
+                                break;
+                            case "Porção mista":
+                                auxCli.setValorComanda(auxCli.getValorComanda() - 15.75);
+                                break;
+                            case "Batata Frita":
+                                auxCli.setValorComanda(auxCli.getValorComanda() - 11.00);
+                                break;
+                            case "Soupa":
+                                auxCli.setValorComanda(auxCli.getValorComanda() - 10.99);
+                                break;
+                            case "Suco Natural":
+                                auxCli.setValorComanda(auxCli.getValorComanda() - 3.50);
+                                break;
+                            default:
+							}
+							inicio = inicio.getProx();
+							return;
+						}
+					}
+					auxCli = auxCli.getProx();
+				}
+			}
+			while (auxComanda.getProx() != null) {
+				if (auxComanda.getProx().getIdComanda() == idComandaCliente) {
+					while(auxCli != null) {//Acha o cliente da comanda
+						if (auxCli.getIdComandaCliente() == idComandaCliente) {
+							if (auxCli.getValorComanda() <= 0) {
+								auxComanda.setProx(auxComanda.getProx().getProx());
+								return;
+							} else {
+								switch (auxComanda.getDescProd()) {// Verifica qual item foi comprado na comanda
+	                            case "Spagethi":
+	                                auxCli.setValorComanda(auxCli.getValorComanda() - 17.50);
+	                                break;
+	                            case "Porção mista":
+	                                auxCli.setValorComanda(auxCli.getValorComanda() - 15.75);
+	                                break;
+	                            case "Batata Frita":
+	                                auxCli.setValorComanda(auxCli.getValorComanda() - 11.00);
+	                                break;
+	                            case "Soupa":
+	                                auxCli.setValorComanda(auxCli.getValorComanda() - 10.99);
+	                                break;
+	                            case "Suco Natural":
+	                                auxCli.setValorComanda(auxCli.getValorComanda() - 3.50);
+	                                break;
+	                            default:
+								}
+								auxComanda.setProx(auxComanda.getProx().getProx());
+								return;
+							}
+						}
+						auxCli = auxCli.getProx();
+					}
+					auxComanda.setProx(auxComanda.getProx().getProx());
+					return;
+				}
+				auxComanda = auxComanda.getProx();
+		}
+	}
 }

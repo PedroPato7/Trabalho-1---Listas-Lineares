@@ -26,12 +26,16 @@ public class Funcionarios {
 		}
 		Nodo aux = inicio;
 		while(aux != null) {
-			System.out.println("- Id: " + aux.getIdFunc() + " | Cargo: " + aux.getCargo() + " | Nome: " + aux.getNomeFunc());
+			if (aux.isStatsFunc()) {
+				System.out.println("- Id: " + aux.getIdFunc() + " | Cargo: " + aux.getCargo() + " | Nome: " + aux.getNomeFunc() + " | Stats: Disponível");
+			} else {
+				System.out.println("- Id: " + aux.getIdFunc() + " | Cargo: " + aux.getCargo() + " | Nome: " + aux.getNomeFunc() + " | Stats: Ocupado");
+			}
 			aux = aux.getProx();
 			}
 		}
 	//Função para pagar as contas no caixa
-	public void pagarComanda(String nomeCliente, ProdutosPedidos pd, Cliente cli, String formaPag) {
+	public void pagarComanda(String nomeCliente, ProdutosPedidos pd, Cliente cli, String formaPag, Double valorPago) {
 		Nodo auxCli = cli.getInicio();
 		Nodo auxFunc = inicio;
 		while (auxCli != null) {
@@ -46,8 +50,7 @@ public class Funcionarios {
 			}
 			auxCli = auxCli.getProx();
 		}
-	}
-	
+	}	
 	//Dispensa um funcionário do restaurante.
 	public void dispensarFunc(int id) {
 		if (vazia()) return;

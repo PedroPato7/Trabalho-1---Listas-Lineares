@@ -86,7 +86,6 @@ public class Pedidos {
 	        }
 	        auxCli = auxCli.getProx();
 	    }
-	    System.out.println("Cliente não encontrado.");
 	}
 	
 	//Função para mostrar lista de pedidos
@@ -103,7 +102,7 @@ public class Pedidos {
 	}
 	
 	//Função para atualizar o restaurante em tempo real, mudar os status dos pedidos, funcionários etc.
-	public void atualizarRestaurant(Cliente cli, Funcionarios func) {
+	public void atualizarRestaurant(Cliente cli, Funcionarios func, Estastisticas est) {
 		Nodo auxCli = cli.getInicio();
 		Nodo auxFunc = func.getInicio();
 		Nodo auxPed = inicio;
@@ -128,13 +127,15 @@ public class Pedidos {
 	    	
 	    	if (auxPed.getStatsPedido().equals("Pronto")) {//Faz a mudança de status dos pedidos com status: "Pronto".
 	    		while (auxFunc != null) {
-	    			if (auxFunc.getCargo().contains("Garçom")) {//Procura os funcionarios com o cargo de Garçom.
+	    			if (auxFunc.getCargo().equals("Garçom")) {//Procura os funcionarios com o cargo de Garçom.
 	    				if(auxFunc.isStatsFunc()) {
 	    					auxPed.setStatsPedido("Entregue");//Muda o status do pedido.
 	    					while(auxCli != null) {
 	    						if(auxCli.getNumeroDoPedido() == auxPed.getNumPedido()) {
 	    							auxCli.setStatsCliente("Comendo");
 	    							System.out.println("Pedido N.°" + auxPed.getNumPedido() + " do cliente " + auxCli.getNome() + " pronto.");
+	    							est.adQuantComendo(1);
+	    							est.remQuantEsperandoPed(1);
 	    						}
 	    						auxCli = auxCli.getProx();
 	    					}	    					
@@ -144,16 +145,17 @@ public class Pedidos {
 	    		}
 	    	}
 	    	
+	    	auxCli = cli.getInicio();
 	    	auxFunc = func.getInicio();
 	    	
 	    	if (auxPed.getStatsPedido().equals("Na cozinha")) {//Faz a mudança de status dos pedidos com status: "Na cozinha".
 	    		while (auxFunc != null) {
 	    			if(auxFunc.getCargo().contains("Cozinheiro")) {// Procura os funcionários com o cargo de cozinheiro.
-	    				if (auxFunc.getNumeracaoPedido() == auxPed.getNumPedido()) {
+	    				
 	    					func.atualizarStatsFunc(auxPed.getNumPedido());
 	    					auxPed.setStatsPedido("Pronto");// Muda o status do pedido. para que um garçom venha pegar e servir o cliente.
 	    					System.out.println("Pedido N.°" + auxPed.getNumPedido() + " pronto, esperando um garçom vir pegar.");
-	    				}
+	    				
 	    			}
 	    			auxFunc = auxFunc.getProx();
 	    		}
@@ -218,12 +220,22 @@ public class Pedidos {
 	}
 	
 	//Função para deletar um pedido específico
-	public void deletarPedido(int numPedido, Funcionarios func) {
+	public void deletarPedido(int numPedido, Funcionarios func, Cliente cli, ProdutosPedidos pd) {
 		if (vazia()) return;
+		Nodo auxCli = cli.getInicio();
 		if (inicio.getNumPedido() == numPedido) {
 			func.atualizarStatsFunc(numPedido);
-			inicio = inicio.getProx();
-			return;
+			if (inicio.getStatsPedido().contains("Anotado") || inicio.getStatsPedido().contains("Na cozinha")) {
+				while (auxCli != null) {// Acha o cliente dono do pedido
+					if (auxCli.getNumeroDoPedido() == numPedido) {
+						pd.deletarComanda(auxCli.getIdComandaCliente(), cli);
+					}
+					auxCli = auxCli.getProx();
+				}
+				inicio = inicio.getProx();
+				return;
+			}
+			
 		}
 		Nodo aux = inicio;
 		while (aux.getProx() != null) {
@@ -234,8 +246,7 @@ public class Pedidos {
 			}		
 			aux = aux.getProx();
 		}
-	}
-	
+	}	
 	//Função que mostra o cardápio 
 	public void cardapio() {
         System.out.print("|---------------------------------|\n");

@@ -10,14 +10,16 @@ public class Mesas {
 	public Nodo getInicio() {
 		return inicio;
 	}
+	int idMesa = 1;
 	
 	// --------- Função para colocar uma mesa no local.
-	public void adicionarMesa(boolean disp, int cadeirasDisp, int numMesa, String cliente) {
-		Nodo novoNodo = new Nodo(disp, cadeirasDisp, numMesa, cliente);
+	public void adicionarMesa(boolean disp, int cadeirasDisp, String cliente, Estastisticas est) {
+		Nodo novoNodo = new Nodo(disp, cadeirasDisp, idMesa, cliente);
 		novoNodo.setProx(inicio);
 		inicio = novoNodo;		
-	}
-	
+		idMesa++;
+		est.adQuantMesasDisp(1);
+	}	
 	//Função para mostrar informações das mesas
 	public void consultaMesas() {
 		if (vazia()) {
@@ -36,7 +38,7 @@ public class Mesas {
 	}
 	
 	// ------------ Função para atualizar Mesas
-	public void atualizarMesa(int numMesa, int numAtualizado, boolean dispAtualizado, int cadeirasDispAtualizado, String clienteAtualizado) {
+	public void atualizarMesa(int numMesa, boolean dispAtualizado, int cadeirasDispAtualizado, String clienteAtualizado) {
 		if (vazia()) {
 			System.out.println("Sem mesas atualmente.");
 			return;
@@ -44,7 +46,6 @@ public class Mesas {
 		Nodo aux = inicio;
 		if (aux.getProx() != null) {
 			if (aux.getNumMesa() == numMesa) {
-				aux.setNumMesa(numMesa);
 				aux.setDisponivel(dispAtualizado);
 				aux.setCadeirasDisp(cadeirasDispAtualizado);
 				aux.setClienteNaMesa(clienteAtualizado);
